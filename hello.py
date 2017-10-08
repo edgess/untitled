@@ -46,18 +46,29 @@ def index():
     import MySQLdb
     db = MySQLdb.connect("192.168.10.30", "log", "1234", "bak_log")
     cur = db.cursor()
-    cur.execute("SELECT * FROM log")
+    cur.execute("SELECT * FROM log ORDER BY date DESC limit 60")
     data = cur.fetchall()
     db.close()
     return render_template('view.html', datas=data)
 
-@app.route('/login', methods=['POST', 'GET'])
-def login():
+@app.route('/log')
+@app.route('/log', methods=['POST', 'GET'])
+def log(name = None):
     if request.method == 'POST':
-        print 'post'
-    else:
-        return 'get'
+        name = request.form['fname']
+    if request.method == 'GET':
+        #return request.args.get('abc')
+        return request.args.items().__str__()
+    return render_template('login.html', rname = name)
 
+@app.route('/login')
+@app.route('/login', methods=['POST', 'GET'])
+def login(name = None):
+    if request.method == 'POST':
+        name = request.form['fname']
+    if request.method == 'GET':
+        name = request.args.get('abc')
+    return render_template('login.html' , rname = name)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port='80')
+    app.run(host='0.0.0.0',port=8888)

@@ -5,12 +5,31 @@
     <title>bak</title>
 </head>
 <body>
-<table border="1">
+<table border=1px>
+    <tr>
+        <td>HOST_NAME</td>
+        <td>FILE_EXIST</td>
+        <td>MD5_CHK</td>
+        <td>MD5</td>
+        <td>DATE</td>
+    </tr>
     {% for data in datas %}
     <tr>
         <td>{{ data[0] }}</td>
-        <td>{{ data[1] }}</td>
-        <td>{{ data[2] }}</td>
+        <td>
+            {% if data[1] == 1 %}
+                YES
+            {% else %}
+                NO
+            {% endif %}
+        </td>
+        <td>
+            {% if data[2] == 1 %}
+                YES
+            {% else %}
+                NO
+            {% endif %}
+        </td>
         <td>{{ data[3] }}</td>
         <td>{{ data[4] }}</td>
     </tr>
